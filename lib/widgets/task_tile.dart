@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:app_flutter_todo_list/widgets/task_list.dart';
 
-class TaskList extends StatelessWidget {
-  const TaskList({
-    Key key,
-  }) : super(key: key);
+class TaskTile extends StatelessWidget {
+  final bool isChecked;
+  final String taskTitle;
+  final Function checkboxCallback;
+  final Function longPressCallback;
+
+  TaskTile(
+      {this.isChecked,
+      this.taskTitle,
+      this.checkboxCallback,
+      this.longPressCallback});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        TaskTile(),
-        TaskTile(),
-      ],
+    return ListTile(
+      onLongPress: longPressCallback,
+      title: Text(
+        taskTitle,
+        style: TextStyle(
+            decoration: isChecked ? TextDecoration.lineThrough : null),
+      ),
+      trailing: Checkbox(
+        activeColor: Colors.lightBlueAccent,
+        value: isChecked,
+        onChanged: checkboxCallback,
+      ),
     );
   }
 }
